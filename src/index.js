@@ -1,5 +1,6 @@
 import express from "express";
 import dbConnect from "./config/database.js";
+import TweetService from "./services/tweet-service.js";
 
 const app = express();
 
@@ -15,4 +16,8 @@ app.get("/", (req,res) => {
 
 app.listen(PORT, () => {
     console.log(`Server is running on PORT ${PORT}`);
+    const t = new TweetService();
+    t.create({
+        content: "Hello Shubham #how are #you here is #YOUR tweet with hashtags #SJ"
+    })
 })

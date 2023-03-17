@@ -1,4 +1,4 @@
-import Tweet from "../model/tweetSchema";
+import Tweet from "../model/tweetSchema.js";
 
 class TweetRepository {
 

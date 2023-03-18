@@ -42,6 +42,15 @@ class TweetRepository {
         }
     }
 
+    async getAll(){
+        try {
+            const tweets = await Tweet.find();
+            return tweets;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 }
 
 export default TweetRepository;

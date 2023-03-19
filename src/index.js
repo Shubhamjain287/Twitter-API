@@ -3,6 +3,9 @@ import dbConnect from "./config/database.js";
 
 import apiRoutes from "./routes/index.js";
 
+import {LikeRepository, UserRepository , TweetRepository} from "./repository/index.js";
+import LikeService from "./services/like-service.js";
+
 const app = express();
 const PORT = 2800;
 
@@ -18,6 +21,25 @@ app.get("/", (req,res) => {
     })
 });
 
+async function test (){
+    const u = new UserRepository();
+    // const user = await u.create({
+    //   name : "Shubham",
+    //   email: "Shubham@gmail.com",
+    //   password: "123456"  
+    // });
+    const users = await u.getAll();
+
+    const t = new TweetRepository();
+    const tweet = await t.getAll(0,10);
+
+    const l = new LikeService();
+    // await l.toggleLike(tweet[0].id, 'Tweet', user.id);
+    await l.toggleLike(tweet[0].id, 'Tweet', users[0].id);
+
+}
+
 app.listen(PORT, async () => {
     console.log(`Server is running on PORT ${PORT}`);
+    // test();
 })

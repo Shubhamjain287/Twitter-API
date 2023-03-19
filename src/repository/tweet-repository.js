@@ -1,51 +1,34 @@
 import Tweet from "../model/tweetSchema.js";
+import CrudRepository from "./crud-repository.js";
 
-class TweetRepository {
+class TweetRepository extends CrudRepository {
 
     constructor(){
-        
-    }
-
-    async create(data){
-        try {
-            const tweet = await Tweet.create(data);
-            return tweet;
-        } catch (error) {
-            console.log(error);
-        }
+        super(Tweet);
     }
 
     async get(id){
         try {
-            const tweet = await Tweet.findById(id);
+            const tweet = await Tweet.findById(id).populate({path : "likes"});
             return tweet;
         } catch (error) {
             console.log(error);
         }
     }
 
-    async update(id,data){
+    async getAll(offset,limit){
         try {
-            const tweet = await Tweet.findByIdAndUpdate(id,data,{new: true});
-            return tweet;
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    async destroy(id){
-        try {
-            const tweet = await Tweet.findByIdAndDelete(id);
-            return tweet;
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    async getAll(){
-        try {
-            const tweets = await Tweet.find();
+            const tweets = await Tweet.find().skip(offset).limit(limit);
             return tweets;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async getWithComment(id){
+        try {
+            const tweet = await Tweet.findById(id).populate({path : 'comments'}).lean();
+            return tweet;
         } catch (error) {
             console.log(error);
         }

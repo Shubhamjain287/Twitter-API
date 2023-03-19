@@ -25,7 +25,6 @@ class TweetService{
         await this.hashtagRepository.bulkCreate(newHashtags);
 
         alreadyPresentTags.forEach((tag) => {
-            console.log(tag);
             tag.tweets.push(tweet.id);
             tag.save();
         });

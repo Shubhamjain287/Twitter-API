@@ -1,4 +1,5 @@
 import express from "express";
+import { signUp } from "../../controllers/auth-controller.js";
 import { createComment } from "../../controllers/comment-controllers.js";
 import { toggleLike } from "../../controllers/like-controllers.js";
 import { createTweet, getTweet } from "../../controllers/tweet-controllers.js";
@@ -11,5 +12,7 @@ router.get("/tweet/:id", getTweet);
 router.post("/like/toggle", toggleLike);
 
 router.post("/comments", createComment);
+
+router.post("/signup", signUp);
 
 export default router;

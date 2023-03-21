@@ -3,15 +3,15 @@ import mongoose from "mongoose";
 const commentSchema = new mongoose.Schema({
     content: {
         type: String,
-        required: true
+        required: true,
     },
     userId: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'User'
+        ref: 'User',
+        required: true
     },
     onModel: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         required: true,
         enum: ['Tweet', 'Comment']
     },
@@ -23,10 +23,10 @@ const commentSchema = new mongoose.Schema({
     comments: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Comment'
+            ref: 'Comment',
         }
     ]
-});
+}, {timestamps: true});
 
 const Comment = mongoose.model('Comment', commentSchema);
 export default Comment;

@@ -32,6 +32,16 @@ class TweetService{
         return tweet;
     }
 
+    async get(tweetId){
+        try {
+            const tweet = await this.tweetRepository.getWithComment(tweetId);
+            return tweet;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+
 }
 
 export default TweetService;

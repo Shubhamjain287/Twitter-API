@@ -9,7 +9,7 @@ export const signUp = async (req,res) => {
             email: req.body.email,
             password: req.body.password
         });
-        return res.status(500).json({
+        return res.status(200).json({
             success: true,
             message: `Successfully Created s User`,
             data: response,
@@ -22,6 +22,27 @@ export const signUp = async (req,res) => {
             message: "Something Went Wrong",
             data: {},
            err: error
+        });
+    }
+}
+
+export const login = async (req,res) => {
+    try {
+        const response = await userService.signin(req.body);
+
+        return res.status(200).json({
+            success: true,
+            message: `Successfully logged In`,
+            data: response,
+            err: {} 
+         });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            success: false,
+            message: "Something went Wrong",
+            data: {},
+            err: error
         });
     }
 }

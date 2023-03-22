@@ -1,10 +1,12 @@
 import express from "express";
+import passport from "passport";
 import dbConnect from "./config/database.js";
 
 import apiRoutes from "./routes/index.js";
 
 import {LikeRepository, UserRepository , TweetRepository} from "./repository/index.js";
 import LikeService from "./services/like-service.js";
+import { passportAuth } from "./config/jwt-middleware.js";
 
 const app = express();
 const PORT = 2800;
@@ -13,6 +15,10 @@ dbConnect();
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+
+app.use(passport.initialize());
+passportAuth(passport);
+
 app.use("/api", apiRoutes);
 
 app.get("/", (req,res) => {
